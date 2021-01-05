@@ -5,6 +5,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FluentController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\PostController;
+
 
 
 
@@ -37,6 +40,14 @@ Route::get('/delete-post/{id}', [ClientController::class, 'deletePost'])->name('
 
 Route::get('fluent-string', [FluentController::class, 'index'])->name('fluent.index');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login.index');
+Route::get('/login', [LoginController::class, 'index'])->name('login.index')->middleware('checkuser');
 
 Route::post('/login', [LoginController::class, 'loginSubmit'])->name('login.submit');
+
+Route::get('/session/get', [SessionController::class, 'gerSessionData'])->name('session.get');
+
+Route::get('/session/set', [SessionController::class, 'storeSessionData'])->name('session.store');
+
+Route::get('/session/remove', [SessionController::class, 'deleteSessionData'])->name('session.remove');
+
+Route::get('/posts', [PostController::class, 'getAllPost'])->name('post.getAllpost');
